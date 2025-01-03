@@ -1,30 +1,31 @@
 {
-  "name": "url-shortener",
-  "version": "1.0.0",
-  "description": "A simple RESTful API built with Node.js, Express, and PostgreSQL that allows users to shorten long URLs, retrieve the original URLs, update or delete short URLs, and track statistics for short URLs.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "setup": "psql -f setup.sql",
-    "seed": "node db/run-seed.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProdiGeeZ/url-shortener.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ProdiGeeZ/url-shortener/issues"
-  },
-  "homepage": "https://github.com/ProdiGeeZ/url-shortener#readme",
-  "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "pg": "^8.13.1"
-  },
-  "devDependencies": {
-    "pg-format": "^1.0.4"
-  }
+	"name": "url-shortener",
+	"version": "1.0.0",
+	"description": "A simple RESTful API built with Node.js, Express, and PostgreSQL that allows users to shorten long URLs, retrieve the original URLs, update or delete short URLs, and track statistics for short URLs.",
+	"main": "listen.js",
+	"scripts": {
+    "start": "node listen.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"setup": "psql -f setup.sql",
+		"seed": "node db/run-seed.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ProdiGeeZ/url-shortener.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ProdiGeeZ/url-shortener/issues"
+	},
+	"homepage": "https://github.com/ProdiGeeZ/url-shortener#readme",
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"pg": "^8.13.1"
+	},
+	"devDependencies": {
+		"pg-format": "^1.0.4"
+	}
 }
