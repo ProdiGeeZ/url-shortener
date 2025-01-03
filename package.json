@@ -4,7 +4,7 @@
 	"description": "A simple RESTful API built with Node.js, Express, and PostgreSQL that allows users to shorten long URLs, retrieve the original URLs, update or delete short URLs, and track statistics for short URLs.",
 	"main": "listen.js",
 	"scripts": {
-    "start": "node listen.js",
+		"start": "node listen.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"setup": "psql -f setup.sql",
 		"seed": "node db/run-seed.js"
@@ -26,6 +26,8 @@
 		"pg": "^8.13.1"
 	},
 	"devDependencies": {
-		"pg-format": "^1.0.4"
+		"jest": "^29.7.0",
+		"pg-format": "^1.0.4",
+		"supertest": "^7.0.0"
 	}
 }
