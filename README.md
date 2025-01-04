@@ -74,6 +74,7 @@ Response:
     "id": "1",
     "url": "https://www.example.com/some/long/url",
     "shortCode": "abc123",
+    "descriptor": "description of shortened link",
     "createdAt": "2021-09-01T12:00:00Z",
     "updatedAt": "2021-09-01T12:00:00Z"
   }
