@@ -23,15 +23,17 @@ describe('POST /api/shorten', () => {
             })
             .expect(201)
             .then(({ body }) => {
-                const { url } = body;
+                const { url, msg } = body;
                 expect(url).toMatchObject({
                     id: 6,
                     url: 'https://www.example.com/some/long/url',
                     short_code: expect.any(String),
+                    descriptor: "Url Description",
                     access_count: 0,
                     created_at: expect.any(String),
                     updated_at: expect.any(String)
                 })
+                expect(msg).toBe("Short URL created successfully");
             })
     });
     test('201: Should create a new record with extra random keys', () => {
@@ -44,15 +46,17 @@ describe('POST /api/shorten', () => {
             })
             .expect(201)
             .then(({ body }) => {
-                const { url } = body;
+                const { url, msg } = body;
                 expect(url).toMatchObject({
-                    id:  expect.any(Number),
+                    id: expect.any(Number),
                     url: 'https://www.example.com/some/long/url',
                     short_code: expect.any(String),
+                    descriptor: "Url Description",
                     access_count: 0,
                     created_at: expect.any(String),
                     updated_at: expect.any(String)
                 })
+                expect(msg).toBe("Short URL created successfully");
             })
     });
     test('201: Should create a new record without the descriptor key', () => {
@@ -63,15 +67,17 @@ describe('POST /api/shorten', () => {
             })
             .expect(201)
             .then(({ body }) => {
-                const { url } = body;
+                const { url, msg } = body;
                 expect(url).toMatchObject({
-                    id:  expect.any(Number),
+                    id: expect.any(Number),
                     url: 'https://www.example.com/some/long/url',
                     short_code: expect.any(String),
+                    descriptor: null,
                     access_count: 0,
                     created_at: expect.any(String),
                     updated_at: expect.any(String)
                 })
+                expect(msg).toBe("Short URL created successfully");
             })
     });
     test('400: Should return an error message when the url is empty', () => {
