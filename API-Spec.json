@@ -47,7 +47,7 @@
             }
           },
           "400": {
-            "description": "Bad Request - Validation errors",
+            "description": "Bad Request: Invalid or missing URL",
             "content": {
               "application/json": {
                 "schema": {
@@ -91,6 +91,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request - Short Code is missing or invalid"
           },
           "404": {
             "description": "Not Found - Short URL does not exist"
@@ -242,7 +245,10 @@
         "required": [
           "url"
         ],
-        "additionalProperties": false
+        "additionalProperties": true,
+        "optionalProperties":[
+          "descriptor"
+        ]
       },
       "ShortUrlResponse": {
         "type": "object",
@@ -259,6 +265,11 @@
           "shortCode": {
             "type": "string",
             "example": "abc123"
+          },
+          "descriptor":{
+            "type": "string",
+            "format": "uri",
+            "example": "description for shortened link"
           },
           "createdAt": {
             "type": "string",

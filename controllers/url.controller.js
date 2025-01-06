@@ -8,6 +8,6 @@ exports.postNewUrl = (req, res, next) => {
     }
     insertNewUrl(url, descriptor)
         .then((url) => {
-            res.status(201).send({ url })
+            res.status(201).send({ url, msg: "Short URL created successfully" })
         }).catch(next);
 }
