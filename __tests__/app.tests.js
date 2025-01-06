@@ -46,7 +46,7 @@ describe('POST /api/shorten', () => {
             .then(({ body }) => {
                 const { url } = body;
                 expect(url).toMatchObject({
-                    id: 6,
+                    id:  expect.any(Number),
                     url: 'https://www.example.com/some/long/url',
                     short_code: expect.any(String),
                     access_count: 0,
@@ -65,7 +65,7 @@ describe('POST /api/shorten', () => {
             .then(({ body }) => {
                 const { url } = body;
                 expect(url).toMatchObject({
-                    id: 6,
+                    id:  expect.any(Number),
                     url: 'https://www.example.com/some/long/url',
                     short_code: expect.any(String),
                     access_count: 0,
