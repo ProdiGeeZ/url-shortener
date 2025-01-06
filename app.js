@@ -1,10 +1,11 @@
 const express = require('express');
-const { postNewUrl } = require('./controllers/url.controller');
+const { postNewUrl, getOriginalUrl } = require('./controllers/url.controller');
 
 const app = express();
 app.use(express.json());
 
 app.post('/api/shorten', postNewUrl)
+app.get('/api/shorten/:shortcode', getOriginalUrl)
 
 app.use((err, req, res, next) => {
     console.log(err);

@@ -12,3 +12,14 @@ exports.insertNewUrl = (url, descriptor) => {
             return result.rows[0]
         })
 };
+
+exports.fetchOriginalUrl = (shortcode) => {
+    const queryStr = `
+        SELECT * FROM urls WHERE short_code = $1;
+    `;
+    return db.query(queryStr, [shortcode])
+        .then((result) => {
+            return result.rows[0]
+        });
+};
+

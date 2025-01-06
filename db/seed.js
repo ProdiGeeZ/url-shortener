@@ -23,8 +23,8 @@ const seed = ({ urlData }) => {
                 `
                 INSERT INTO urls (url, short_code, descriptor, access_count, created_at, updated_at)
                 VALUES %L;`,
-                urlData.map(({ url, short_code, descriptor, access_count, created_at, updated_at }) =>
-                    [url, short_code, descriptor, access_count, created_at, updated_at]
+                urlData.map(({ url, shortCode, descriptor, accessCount, createdAt, updatedAt }) =>
+                    [url, shortCode, descriptor, accessCount, createdAt, updatedAt]
                 )
             );
             return db.query(urlQuery);
