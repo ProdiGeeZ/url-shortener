@@ -92,9 +92,6 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request - Short Code is missing or invalid"
-          },
           "404": {
             "description": "Not Found - Short URL does not exist"
           },
