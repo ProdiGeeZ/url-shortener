@@ -51,7 +51,7 @@ exports.putOriginalUrl = (req, res, next) => {
 exports.deleteUrl = (req, res, next) => {
     const { shortcode } = req.params;
     deleteUrlByShortcode(shortcode)
-    .then(() => {
-        res.status(204).send({ msg: "Deleted record successfully." });
-    }).catch(next);
+        .then(() => {
+            res.status(204).send({ msg: "Deleted record successfully." });
+        }).catch(next);
 };

@@ -58,7 +58,7 @@ Ensure you have the following installed:
 ## API Endpoints
 
 ### 1. Create Short URL
-**POST** `/shorten`
+**POST** `/api/shorten`
 
 Request Body:
 ```json
@@ -82,7 +82,7 @@ Response:
 - **400 Bad Request**: Validation errors.
 
 ### 2. Retrieve Original URL
-**GET** `/shorten/:shortCode`
+**GET** `/api/shorten/:shortCode`
 
 Response:
 - **200 OK**
@@ -98,7 +98,7 @@ Response:
 - **404 Not Found**: If the short code does not exist.
 
 ### 3. Update Short URL
-**PUT** `/shorten/:shortCode`
+**PUT** `/api/shorten/:shortCode`
 
 Request Body:
 ```json
@@ -122,7 +122,7 @@ Response:
 - **404 Not Found**: If the short code does not exist.
 
 ### 4. Delete Short URL
-**DELETE** `/shorten/:shortCode`
+**DELETE** `/api/shorten/:shortCode`
 
 Response:
 - **204 No Content**: If the short URL was successfully deleted.
@@ -155,6 +155,7 @@ Response:
 | id           | SERIAL       | Primary key                             |
 | url          | TEXT         | Original long URL                       |
 | short_code   | VARCHAR(10)  | Unique short code                       |
+| descriptor   | VARCHAR(100) | Optional description for the URL        |
 | access_count | INTEGER      | Number of times the short URL is accessed |
 | created_at   | TIMESTAMP    | Timestamp when the URL was created      |
 | updated_at   | TIMESTAMP    | Timestamp when the URL was last updated |
