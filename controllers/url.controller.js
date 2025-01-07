@@ -1,4 +1,4 @@
-const { insertNewUrl, fetchOriginalUrl, updateOriginalUrl } = require("../models/url.model");
+const { insertNewUrl, fetchOriginalUrl, updateOriginalUrl, deleteUrlByShortcode } = require("../models/url.model");
 const { validateURL } = require("../utils");
 
 exports.postNewUrl = (req, res, next) => {
@@ -46,4 +46,12 @@ exports.putOriginalUrl = (req, res, next) => {
             }
             res.status(200).send({ url: updatedUrl, msg: "Successfully updated record." });
         }).catch(next);
+};
+
+exports.deleteUrl = (req, res, next) => {
+    const { shortcode } = req.params;
+    deleteUrlByShortcode(shortcode)
+    .then(() => {
+        res.status(204).send({ msg: "Deleted record successfully." });
+    }).catch(next);
 };

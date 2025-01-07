@@ -54,3 +54,24 @@ exports.updateOriginalUrl = (shortcode, url, descriptor) => {
             return result.rows[0];
         });
 };
+
+exports.deleteUrlByShortcode = (shortcode) => {
+    const checkQuery = `
+        SELECT * FROM urls WHERE short_code = $1;
+    `;
+    return db.query(checkQuery, [shortcode])
+        .then((result) => {
+            if (result.rowCount === 0) {
+                return Promise.reject({ status: 404, msg: "Not Found - Short URL does not exist" });
+            }
+            const deleteQuery = `
+                DELETE FROM urls
+                WHERE short_code = $1
+                RETURNING *;
+            `;
+            return db.query(deleteQuery, [shortcode]);
+        })
+        .then((result) => {
+            return result.rows[0];
+        });
+}
