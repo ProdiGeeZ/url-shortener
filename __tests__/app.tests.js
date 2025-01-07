@@ -134,3 +134,91 @@ describe('GET /api/shorten/:shortcode', () => {
             })
     });
 });
+
+describe.only('PUT /api/shorten/:shortcode', () => {
+    test('200: Should successfully update a record and return the updated object', () => {
+        return request(app)
+            .put("/api/shorten/abc123")
+            .send({
+                "url": "https://www.example.com/updated/url",
+            })
+            .expect(200)
+            .then(({ body }) => {
+                const { url } = body;
+                expect(url).toMatchObject({
+                    id: expect.any(Number),
+                    url: "https://www.example.com/updated/url",
+                    short_code: "abc123",
+                    descriptor: expect.any(String),
+                    access_count: expect.any(Number),
+                    created_at: expect.any(String),
+                    updated_at: expect.any(String),
+                })
+            })
+    });
+    test('200: Should update the descriptor if provided with the correct shortcode', () => {
+        return request(app)
+            .put("/api/shorten/abc123")
+            .send({
+                "descriptor": "New Descriptor"
+            })
+            .expect(200)
+            .then(({ body }) => {
+                const { url } = body;
+                expect(url).toMatchObject({
+                    id: expect.any(Number),
+                    url: expect.any(String),
+                    short_code: "abc123",
+                    descriptor: "New Descriptor",
+                    access_count: expect.any(Number),
+                    created_at: expect.any(String),
+                    updated_at: expect.any(String),
+                })
+            })
+    });
+    test('404: Should return an error message when the shortcode does not exist', () => {
+        return request(app)
+            .put("/api/shorten/nonexistent")
+            .send({
+                "url": "https://www.example.com/updated/url",
+                "descriptor": "Updated Description"
+            })
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Not Found - Short URL does not exist");
+            })
+    });
+    test('400: Should return an error message when the provided url is invalid', () => {
+        return request(app)
+            .put("/api/shorten/abc123")
+            .send({
+                "url": "invalid-url",
+                "descriptor": "Updated Description"
+            })
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad Request: Invalid URL");
+            })
+    });
+    test('400: Should return an error message when the provided descriptor is invalid', () => {
+        return request(app)
+            .put("/api/shorten/abc123")
+            .send({
+                "url": "https://www.example.com/updated/url",
+                "descriptor": 12345
+            })
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad Request: Invalid descriptor");
+            })
+    });
+    test('400: Should return an error message when both url and descriptor are missing', () => {
+        return request(app)
+            .put("/api/shorten/abc123")
+            .send({})
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad Request: Missing URL and descriptor");
+            })
+    });
+});

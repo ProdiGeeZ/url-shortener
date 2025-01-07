@@ -1,4 +1,4 @@
-const { insertNewUrl, fetchOriginalUrl } = require("../models/url.model");
+const { insertNewUrl, fetchOriginalUrl, updateOriginalUrl } = require("../models/url.model");
 const { validateURL } = require("../utils");
 
 exports.postNewUrl = (req, res, next) => {
@@ -22,3 +22,28 @@ exports.getOriginalUrl = (req, res, next) => {
             res.status(200).send({ url })
         }).catch(next);
 }
+
+exports.putOriginalUrl = (req, res, next) => {
+    const { shortcode } = req.params;
+    const { url, descriptor } = req.body;
+
+    if (url && (typeof url !== 'string' || !validateURL(url))) {
+        return next({ status: 400, msg: "Bad Request: Invalid URL" });
+    }
+
+    if (descriptor && typeof descriptor !== 'string') {
+        return next({ status: 400, msg: "Bad Request: Invalid descriptor" });
+    }
+
+    if (!url && !descriptor) {
+        return next({ status: 400, msg: "Bad Request: Missing URL and descriptor" });
+    }
+
+    updateOriginalUrl(shortcode, url, descriptor)
+        .then((updatedUrl) => {
+            if (!updatedUrl) {
+                return next({ status: 404, msg: "Not Found - Short URL does not exist" });
+            }
+            res.status(200).send({ url: updatedUrl, msg: "Successfully updated record." });
+        }).catch(next);
+};
