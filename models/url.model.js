@@ -23,3 +23,34 @@ exports.fetchOriginalUrl = (shortcode) => {
         });
 };
 
+exports.updateOriginalUrl = (shortcode, url, descriptor) => {
+    const fields = [];
+    const queryParams = [];
+
+    if (url) {
+        fields.push(`url = $${fields.length + 1}`);
+        queryParams.push(url);
+    }
+
+    if (descriptor) {
+        fields.push(`descriptor = $${fields.length + 1}`);
+        queryParams.push(descriptor);
+    }
+
+    if (fields.length === 0) {
+        return Promise.reject({ status: 400, msg: "Bad Request: Missing URL and descriptor" });
+    }
+
+    const queryStr = `
+        UPDATE urls
+        SET ${fields.join(', ')}
+        WHERE short_code = $${fields.length + 1}
+        RETURNING *;
+    `;
+    queryParams.push(shortcode);
+
+    return db.query(queryStr, queryParams)
+        .then((result) => {
+            return result.rows[0];
+        });
+};
