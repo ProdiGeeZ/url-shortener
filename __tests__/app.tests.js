@@ -135,7 +135,7 @@ describe('GET /api/shorten/:shortcode', () => {
     });
 });
 
-describe.only('PUT /api/shorten/:shortcode', () => {
+describe('PUT /api/shorten/:shortcode', () => {
     test('200: Should successfully update a record and return the updated object', () => {
         return request(app)
             .put("/api/shorten/abc123")

@@ -5,7 +5,7 @@
 	"main": "listen.js",
 	"scripts": {
 		"start": "node listen.js",
-		"test": "jest -coverage",
+		"test": "jest --all -coverage",
 		"setup": "psql -f setup.sql",
 		"seed": "node db/run-seed.js"
 	},
