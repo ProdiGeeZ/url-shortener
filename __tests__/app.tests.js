@@ -222,3 +222,22 @@ describe('PUT /api/shorten/:shortcode', () => {
             })
     });
 });
+
+describe('DELETE /api/shorten/:shortcode', () => {
+    test('204: Should delete the correct record and return a confirmation message', () => {
+        return request(app)
+            .delete("/api/shorten/abc123")
+            .expect(204)
+            .then(({ body }) => {
+                expect(body).toEqual({});
+            });
+    });
+    test('404: Should return an error message when the short code does not exist', () => {
+        return request(app)
+            .delete("/api/shorten/nonexistent")
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Not Found - Short URL does not exist");
+            });
+    });
+});
