@@ -78,3 +78,14 @@ exports.deleteUrlByShortcode = (shortcode) => {
             return result.rows[0];
         });
 }
+
+exports.fetchUrlStats = (shortcode) => {
+    const queryStr = `
+    SELECT * FROM urls
+    WHERE short_code = $1;
+    `
+    return db.query(queryStr, [shortcode])
+        .then((result) => {
+            return result.rows[0];
+        })
+}

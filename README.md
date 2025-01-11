@@ -91,6 +91,7 @@ Response:
     "id": "1",
     "url": "https://www.example.com/some/long/url",
     "shortCode": "abc123",
+    "descriptor": "description of shortened link",
     "createdAt": "2021-09-01T12:00:00Z",
     "updatedAt": "2021-09-01T12:00:00Z"
   }
@@ -114,6 +115,7 @@ Response:
     "id": "1",
     "url": "https://www.example.com/some/updated/url",
     "shortCode": "abc123",
+    "descriptor": "description of shortened link",
     "createdAt": "2021-09-01T12:00:00Z",
     "updatedAt": "2021-09-01T12:30:00Z"
   }
@@ -138,9 +140,10 @@ Response:
     "id": "1",
     "url": "https://www.example.com/some/long/url",
     "shortCode": "abc123",
+    "descriptor": "description of shortened link",
+    "accessCount": 10
     "createdAt": "2021-09-01T12:00:00Z",
     "updatedAt": "2021-09-01T12:00:00Z",
-    "accessCount": 10
   }
   ```
 - **404 Not Found**: If the short code does not exist.

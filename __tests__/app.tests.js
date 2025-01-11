@@ -238,3 +238,32 @@ describe('DELETE /api/shorten/:shortcode', () => {
             });
     });
 });
+
+describe('GET /api/shorten/:shortcode/stats', () => {
+    test('200: Should return the url along with all the keys including the access count', () => {
+        return request(app)
+            .get("/api/shorten/abc123/stats")
+            .expect(200)
+            .then(({ body }) => {
+                const { urlStats } = body;
+                expect(urlStats).toMatchObject({
+                    id: expect.any(Number),
+                    url: "https://www.example.com/product/12345678",
+                    short_code: "abc123",
+                    descriptor: "product-page",
+                    access_count: 15,
+                    created_at: "2025-01-01T12:00:00.000Z",
+                    updated_at: "2025-01-01T12:00:00.000Z",
+                })
+            })
+    });
+    test('404: Should send an error message when the shortcode does not exist', () => {
+        return request(app)
+            .get("/api/shorten/1/stats")
+            .expect(404)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("Not Found - Short URL does not exist");
+            })
+    });
+});
