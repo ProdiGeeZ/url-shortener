@@ -15,11 +15,14 @@ exports.insertNewUrl = (url, descriptor) => {
 
 exports.fetchOriginalUrl = (shortcode) => {
     const queryStr = `
-        SELECT * FROM urls WHERE short_code = $1;
+        UPDATE urls
+        SET access_count = access_count + 1
+        WHERE short_code = $1
+        RETURNING *;
     `;
     return db.query(queryStr, [shortcode])
         .then((result) => {
-            return result.rows[0]
+            return result.rows[0];
         });
 };
 

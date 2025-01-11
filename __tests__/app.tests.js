@@ -107,7 +107,7 @@ describe('POST /api/shorten', () => {
 });
 
 describe('GET /api/shorten/:shortcode', () => {
-    test('200: Fetch the correct record based on the shortcode', () => {
+    test('200: Fetch the correct record based on the shortcode and also increment the access count', () => {
         return request(app)
             .get("/api/shorten/abc123")
             .expect(200)
@@ -118,7 +118,7 @@ describe('GET /api/shorten/:shortcode', () => {
                     url: "https://www.example.com/product/12345678",
                     short_code: "abc123",
                     descriptor: "product-page",
-                    access_count: 15,
+                    access_count: 16,
                     created_at: "2025-01-01T12:00:00.000Z",
                     updated_at: "2025-01-01T12:00:00.000Z",
                 })
