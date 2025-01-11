@@ -19,7 +19,7 @@ exports.getOriginalUrl = (req, res, next) => {
             if (!url) {
                 return next({ status: 404, msg: "Not Found - Short URL does not exist" });
             }
-            res.status(200).send({ url })
+            res.status(200).send({ url, msg: "Original URL retrieved successfully" })
         }).catch(next);
 }
 
@@ -44,7 +44,7 @@ exports.putOriginalUrl = (req, res, next) => {
             if (!updatedUrl) {
                 return next({ status: 404, msg: "Not Found - Short URL does not exist" });
             }
-            res.status(200).send({ url: updatedUrl, msg: "Successfully updated record." });
+            res.status(200).send({ url: updatedUrl, msg: "Short URL updated successfully." });
         }).catch(next);
 };
 

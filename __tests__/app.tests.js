@@ -121,6 +121,7 @@ describe('GET /api/shorten/:shortcode', () => {
                     created_at: "2025-01-01T12:00:00.000Z",
                     updated_at: "2025-01-01T12:00:00.000Z",
                 })
+                expect(body.msg).toBe("Original URL retrieved successfully")
             })
     });
     test('404: Should send an error message when the shortcode does not exist', () => {
