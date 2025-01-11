@@ -1,4 +1,4 @@
-const { insertNewUrl, fetchOriginalUrl, updateOriginalUrl, deleteUrlByShortcode } = require("../models/url.model");
+const { insertNewUrl, fetchOriginalUrl, updateOriginalUrl, deleteUrlByShortcode, fetchUrlStats } = require("../models/url.model");
 const { validateURL } = require("../utils");
 
 exports.postNewUrl = (req, res, next) => {
@@ -19,7 +19,7 @@ exports.getOriginalUrl = (req, res, next) => {
             if (!url) {
                 return next({ status: 404, msg: "Not Found - Short URL does not exist" });
             }
-            res.status(200).send({ url })
+            res.status(200).send({ url, msg: "Original URL retrieved successfully" })
         }).catch(next);
 }
 
@@ -44,7 +44,7 @@ exports.putOriginalUrl = (req, res, next) => {
             if (!updatedUrl) {
                 return next({ status: 404, msg: "Not Found - Short URL does not exist" });
             }
-            res.status(200).send({ url: updatedUrl, msg: "Successfully updated record." });
+            res.status(200).send({ url: updatedUrl, msg: "Short URL updated successfully." });
         }).catch(next);
 };
 
@@ -55,3 +55,14 @@ exports.deleteUrl = (req, res, next) => {
             res.status(204).send({ msg: "Deleted record successfully." });
         }).catch(next);
 };
+
+exports.getUrlStats = (req, res, next) => {
+    const { shortcode } = req.params;
+    fetchUrlStats(shortcode)
+        .then((urlStats) => {
+            if (!urlStats) {
+                return next({ status: 404, msg: "Not Found - Short URL does not exist" });
+            }
+        res.status(200).send({ urlStats })
+    }).catch(next);
+}

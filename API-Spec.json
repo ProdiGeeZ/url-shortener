@@ -5,9 +5,9 @@
     "description": "A simple RESTful API that allows users to shorten long URLs, retrieve original URLs, update existing short URLs, delete short URLs, and get statistics on short URLs.",
     "version": "1.0.0",
     "contact": {
-      "name": "API Support",
-      "url": "http://www.example.com/support",
-      "email": "support@example.com"
+      "name": "N/A",
+      "url": "https://github.com/ProdiGeeZ/url-shortener",
+      "email": "N/A"
     }
   },
   "tags": [
@@ -17,7 +17,7 @@
     }
   ],
   "paths": {
-    "/api/shorten": {
+    "/shorten": {
       "post": {
         "tags": [
           "URL Shortening"
@@ -57,19 +57,12 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/shorten/{shortcode}": {
+    "/shorten/{shortCode}": {
       "get": {
         "tags": [
           "URL Shortening"
@@ -79,7 +72,7 @@
         "operationId": "retrieveOriginalUrl",
         "parameters": [
           {
-            "name": "shortcode",
+            "name": "shortCode",
             "in": "path",
             "required": true,
             "description": "The short code of the URL to retrieve",
@@ -100,24 +93,10 @@
             }
           },
           "404": {
-            "description": "Not Found - Short URL does not exist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Not Found - Short URL does not exist"
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Internal Server Error"
           }
         }
       },
@@ -126,11 +105,11 @@
           "URL Shortening"
         ],
         "summary": "Update an existing short URL",
-        "description": "This endpoint updates an existing short URL with a new long URL or descriptor.",
+        "description": "This endpoint updates an existing short URL with a new long URL.",
         "operationId": "updateShortUrl",
         "parameters": [
           {
-            "name": "shortcode",
+            "name": "shortCode",
             "in": "path",
             "required": true,
             "description": "The short code of the URL to update",
@@ -144,7 +123,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateRequest"
+                "$ref": "#/components/schemas/ShortenRequest"
               }
             }
           }
@@ -171,24 +150,10 @@
             }
           },
           "404": {
-            "description": "Not Found - Short URL does not exist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Not Found - Short URL does not exist"
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Internal Server Error"
           }
         }
       },
@@ -201,7 +166,7 @@
         "operationId": "deleteShortUrl",
         "parameters": [
           {
-            "name": "shortcode",
+            "name": "shortCode",
             "in": "path",
             "required": true,
             "description": "The short code of the URL to delete",
@@ -215,29 +180,15 @@
             "description": "Short URL deleted successfully"
           },
           "404": {
-            "description": "Not Found - Short URL does not exist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Not Found - Short URL does not exist"
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/shorten/{shortcode}/stats": {
+    "/shorten/{shortCode}/stats": {
       "get": {
         "tags": [
           "URL Shortening"
@@ -247,7 +198,7 @@
         "operationId": "getUrlStatistics",
         "parameters": [
           {
-            "name": "shortcode",
+            "name": "shortCode",
             "in": "path",
             "required": true,
             "description": "The short code of the URL to get statistics for",
@@ -268,24 +219,10 @@
             }
           },
           "404": {
-            "description": "Not Found - Short URL does not exist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Not Found - Short URL does not exist"
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Internal Server Error"
           }
         }
       }
@@ -303,30 +240,12 @@
           },
           "descriptor": {
             "type": "string",
-            "maxLength": 100,
-            "example": "description for shortened link"
+            "example": "Url Description"
           }
         },
         "required": [
           "url"
         ],
-        "additionalProperties": false
-      },
-      "UpdateRequest": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "example": "https://www.example.com/some/long/url"
-          },
-          "descriptor": {
-            "type": "string",
-            "maxLength": 100,
-            "example": "description for shortened link"
-          }
-        },
-        "minProperties": 1,
         "additionalProperties": false
       },
       "ShortUrlResponse": {
@@ -345,32 +264,33 @@
             "type": "string",
             "example": "abc123"
           },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-09-01T12:00:00Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-09-01T12:30:00Z"
+          },
           "descriptor": {
             "type": "string",
-            "example": "description for shortened link"
+            "example": "Url Description"
           },
-          "access_count": {
+          "accessCount": {
             "type": "integer",
             "example": 0
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2021-09-01T12:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2021-09-01T12:00:00Z"
           }
         },
         "required": [
           "id",
           "url",
           "shortCode",
-          "access_count",
-          "created_at",
-          "updated_at"
+          "createdAt",
+          "updatedAt",
+          "descriptor",
+          "accessCount"
         ],
         "additionalProperties": false
       },
@@ -390,45 +310,51 @@
             "type": "string",
             "example": "abc123"
           },
-          "descriptor": {
+          "createdAt": {
             "type": "string",
-            "example": "description for shortened link"
+            "format": "date-time",
+            "example": "2021-09-01T12:00:00Z"
           },
-          "access_count": {
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-09-01T12:30:00Z"
+          },
+          "accessCount": {
             "type": "integer",
             "example": 10
           },
-          "created_at": {
+          "descriptor": {
             "type": "string",
-            "format": "date-time",
-            "example": "2021-09-01T12:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2021-09-01T12:00:00Z"
+            "example": "product-page"
           }
         },
         "required": [
           "id",
           "url",
           "shortCode",
-          "access_count",
-          "created_at",
-          "updated_at"
+          "createdAt",
+          "updatedAt",
+          "accessCount",
+          "descriptor"
         ],
         "additionalProperties": false
       },
       "ErrorResponse": {
         "type": "object",
         "properties": {
-          "msg": {
+          "error": {
             "type": "string",
-            "example": "Bad Request: Invalid or missing URL"
+            "example": "Validation error"
+          },
+          "message": {
+            "type": "string",
+            "example": "The URL provided is not valid."
           }
         },
         "required": [
-          "msg"
+          "error",
+          "message"
         ],
         "additionalProperties": false
       }
