@@ -18,7 +18,7 @@ exports.fetchOriginalUrl = (shortcode) => {
         UPDATE urls
         SET access_count = access_count + 1
         WHERE short_code = $1
-        RETURNING *;
+        RETURNING id, url, short_code, descriptor, created_at, updated_at;
     `;
     return db.query(queryStr, [shortcode])
         .then((result) => {
@@ -48,7 +48,7 @@ exports.updateOriginalUrl = (shortcode, url, descriptor) => {
         UPDATE urls
         SET ${fields.join(', ')}
         WHERE short_code = $${fields.length + 1}
-        RETURNING *;
+        RETURNING id, url, short_code, descriptor, created_at, updated_at;
     `;
     queryParams.push(shortcode);
 

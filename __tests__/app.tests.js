@@ -118,7 +118,6 @@ describe('GET /api/shorten/:shortcode', () => {
                     url: "https://www.example.com/product/12345678",
                     short_code: "abc123",
                     descriptor: "product-page",
-                    access_count: 16,
                     created_at: "2025-01-01T12:00:00.000Z",
                     updated_at: "2025-01-01T12:00:00.000Z",
                 })
@@ -150,7 +149,6 @@ describe('PUT /api/shorten/:shortcode', () => {
                     url: "https://www.example.com/updated/url",
                     short_code: "abc123",
                     descriptor: expect.any(String),
-                    access_count: expect.any(Number),
                     created_at: expect.any(String),
                     updated_at: expect.any(String),
                 })
@@ -170,7 +168,6 @@ describe('PUT /api/shorten/:shortcode', () => {
                     url: expect.any(String),
                     short_code: "abc123",
                     descriptor: "New Descriptor",
-                    access_count: expect.any(Number),
                     created_at: expect.any(String),
                     updated_at: expect.any(String),
                 })
