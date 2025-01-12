@@ -27,7 +27,11 @@
 		"cross-env": "^7.0.3",
 		"dotenv": "^16.4.7",
 		"express": "^4.21.2",
-		"pg": "^8.13.1"
+		"express-winston": "^4.2.0",
+		"pg": "^8.13.1",
+		"uuid": "^11.0.5",
+		"winston": "^3.17.0",
+		"winston-daily-rotate-file": "^5.0.0"
 	},
 	"devDependencies": {
 		"jest": "^29.7.0",
