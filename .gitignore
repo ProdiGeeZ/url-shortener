@@ -131,3 +131,5 @@ dist
 .pnp.*
 .env.development
 .env.test
+authentication.md
+deployment.md
