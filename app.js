@@ -1,8 +1,10 @@
 const express = require('express');
 const { postNewUrl, getOriginalUrl, putOriginalUrl, deleteUrl, getUrlStats } = require('./controllers/url.controller');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post('/api/shorten', postNewUrl)
 app.get('/api/shorten/:shortcode', getOriginalUrl)
