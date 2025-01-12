@@ -7,7 +7,9 @@
 		"start": "node listen.js",
 		"test": "jest --all -coverage",
 		"setup": "psql -f setup.sql",
-		"seed": "node db/run-seed.js"
+		"seed": "node db/run-seed.js",
+		"seed-prod": "cross-env NODE_ENV=production npm run seed",
+		"test-connection": "cross-env NODE_ENV=production node test-db-connection.js"
 	},
 	"repository": {
 		"type": "git",
@@ -21,6 +23,8 @@
 	},
 	"homepage": "https://github.com/ProdiGeeZ/url-shortener#readme",
 	"dependencies": {
+		"cors": "^2.8.5",
+		"cross-env": "^7.0.3",
 		"dotenv": "^16.4.7",
 		"express": "^4.21.2",
 		"pg": "^8.13.1"
