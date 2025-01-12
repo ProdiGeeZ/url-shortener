@@ -11,4 +11,8 @@ exports.getHealthStatus = async (req, res, next) => {
     } catch (err) {
         next({ status: 500, msg: 'Service Unhealthy - Database connection failed' });
     }
-}; 
+};
+
+exports.send404 = (req, res, next) => {
+    res.status(404).send({ msg: 'Path not found' });
+};

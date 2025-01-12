@@ -268,3 +268,15 @@ describe('GET /api/shorten/:shortcode/stats', () => {
             })
     });
 });
+
+describe('ALL /api/anything-else', () => {
+    test('404: Should return path not found.', () => {
+        return request(app)
+            .get("/")
+            .expect(404)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("Path not found");
+            })
+    });
+});

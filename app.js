@@ -1,6 +1,6 @@
 const express = require('express');
 const { postNewUrl, getOriginalUrl, putOriginalUrl, deleteUrl, getUrlStats } = require('./controllers/url.controller');
-const { getHealthStatus } = require('./controllers/health.controller');
+const { getHealthStatus, send404 } = require('./controllers/health.controller');
 const cors = require('cors');
 
 const app = express();
@@ -14,6 +14,7 @@ app.get('/api/shorten/:shortcode', getOriginalUrl)
 app.put('/api/shorten/:shortcode', putOriginalUrl)
 app.delete('/api/shorten/:shortcode', deleteUrl)
 app.get('/api/shorten/:shortcode/stats', getUrlStats)
+app.all("*", send404);
 
 app.use((err, req, res, next) => {
     console.log(err);
